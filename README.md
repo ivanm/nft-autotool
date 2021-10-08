@@ -2,7 +2,9 @@
 
 ## What is this?
 
-This script transforms json metadata, a set of images (that represent a trait) and a configuration for each trait into a set of composited images according to the order and probability for each trait. It also generates a single ``database.json`` that can be used for NFT standards ERC721, ERC1155 throught an API like https://github.com/ProjectOpenSea/metadata-api-nodejs/tree/master/src
+This script transforms json metadata, a set of images (that represent a trait) and a configuration for each one into a set of composited images according to the order and probability for each trait. 
+
+It also generates a single ``database.json`` that can be used for NFT standards ERC721, ERC1155 throught an API like https://github.com/ProjectOpenSea/metadata-api-nodejs/tree/master/src
 
 The easiest way would be to could fork this repo and modify the config directory with your own assets and settings. 
 
@@ -34,15 +36,14 @@ An object containing the dimensions to extract when composing the final image. F
 
 ``layers``
 
-An Array of each layer, the label you define here is used for naming the folder names in `config/images`. For convenience metadata is split into different folders like `data/head.js`, each file representing a the properties of the trait (Check Traits Section). For example:
+An Array of each layer, the name you define here is used for naming the folders and files in `config/images` (Check Folder Configuration Section). For convenience metadata is split into different files (like `data/head.js`), each file containing the properties of each trait (Check Traits Section). For example:
 
 ```
   const { head } = require("./data/head.js");
   const { hat } = require("./data/hat.js");
   
   ....
-  
-  
+    
   layers: [
     {
       name: "head",
@@ -99,7 +100,12 @@ exports.hat = [
 
 ## Folder Configuration
 
-Files required on ``config/images`` follow the configuration for layers on ``settings.json``, so for layer ``hat`` with ``name: "hat"`` whe need to add each id of the traits on ``config/data/hat.json``. For example: ``hat1.png``, ``hat2.png``, ``hat3.png`` for ids 1,2,3 and so on.
+Files that require to be present on ``config/images`` follow the configuration for layers on ``settings.json``.
+
+For example, for layer ``hat`` if we are going to add ids ``1``,``2``, ``3`` on ``config/data/hat.json`` we require the following:
+
+- A folder `hat` on ``config/images``.
+- Images ``hat1.png``, ``hat2.png``, ``hat3.png`` on ``config/images/hat``.
 
 ## How to run:
 
