@@ -6,7 +6,7 @@ This script transforms json metadata, a set of images (that represent a trait) a
 
 It also generates a single ``database.json`` that can be used for NFT standards ERC721, ERC1155 throught an API like https://github.com/ProjectOpenSea/metadata-api-nodejs/tree/master/src
 
-The easiest way would be to could fork this repo and modify the config directory with your own assets and settings. 
+The easiest way would be to could fork this repo and modify the contents of the ``config`` directory with your own assets and settings. 
 
 ## Where to start?
 
