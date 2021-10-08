@@ -1,4 +1,4 @@
-# nft-autotool
+# NFT Autotool
 ## What is this?
 
 This script transforms json metadata, a set of images (that represent a trait) and a configuration for each trait into a set of composited images according to the order and probability for each trait. It also generates a single ``database.json`` that can be used for NFT standards ERC721, ERC1155 throught an API like https://github.com/ProjectOpenSea/metadata-api-nodejs/tree/master/src
@@ -93,7 +93,6 @@ exports.hat = [
   }
 ];
 
-
 ```
 
 ## Folder Configuration
@@ -103,4 +102,5 @@ Files required on ``config/images`` follow the configuration for layers on ``set
 ## How to run:
 
 Fork this repo and run ``yarn install`` to install all dependencies. Then use ``node index.js`` to run.
+
 Once the script finishes, images and the ``database.json`` file will be located on the ``output`` folder.
