@@ -100,7 +100,7 @@ exports.hat = [
 
 ## Folder Configuration
 
-Files required on ``config/images`` follow the configuration for layers on ``settings.json``, so for layer ``hat`` with ``name: "hat"`` whe need to add each id of the traits on ``config/data/hat.json``. For example: ``head1.png head2.png head3.png`` and so on.
+Files required on ``config/images`` follow the configuration for layers on ``settings.json``, so for layer ``hat`` with ``name: "hat"`` whe need to add each id of the traits on ``config/data/hat.json``. For example: ``hat1.png``, ``hat2.png``, ``hat3.png`` for ids 1,2,3 and so on.
 
 ## How to run:
 
