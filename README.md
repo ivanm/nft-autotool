@@ -10,9 +10,9 @@ The easiest way would be to could fork this repo and modify the contents of the 
 
 ## Where to start?
 
-A good idea would to start with a PSD containing the layers for each trait that you will be composing. An example of **Feels Metaverse** can be found on the ``demo`` folder of this repo. 
+A good idea would be to start with a PSD containing the layers for each trait that you will be composing. An example of **Feels Metaverse** can be found on the ``demo`` folder of this repo. 
 
-You can use a plugin for GIMP like https://khalim19.github.io/gimp-plugin-export-layers/sections/Installation.html for making it easier to export multiple layers.
+You can then use a plugin for GIMP like https://khalim19.github.io/gimp-plugin-export-layers/sections/Installation.html for making it easier to export multiple layers.
 
 ## Configuration
 
