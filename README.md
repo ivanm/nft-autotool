@@ -7,7 +7,7 @@ The easiest way would be to could fork this repo and modify the config directory
 
 ## Where to start?
 
-A good idea would to start with a PSD containing the layers for each trait that you will be composing. An example of Feels Metaverse can be found here. You could use a plugin for GIMP like https://khalim19.github.io/gimp-plugin-export-layers/sections/Installation.html for making it easier to export.
+A good idea would to start with a PSD containing the layers for each trait that you will be composing. An example of Feels Metaverse can be found on the ``demo`` folder of this repo. You could use a plugin for GIMP like https://khalim19.github.io/gimp-plugin-export-layers/sections/Installation.html for making it easier to export.
 
 ## Configuration
 
@@ -17,13 +17,21 @@ A good idea would to start with a PSD containing the layers for each trait that 
 
 A string containing the name of your collection.
 
+``maxNumber``
+
+The number of images to be generated.
+
 ``dnaLayerIds``
- a
+
 An Array with the layer indexes that will be used for uniqueness (Check DNA Section).
+
+``extractDimensions``
+
+An object containing the dimensions to extract when composing the final image. Full Documentation: https://sharp.pixelplumbing.com/api-resize#extract
 
 ``layers``
 
-An Array of each layer, the label you define here is used for naming the folder names in `config/images`. For convenience metadata is split into different folders like `data/head.js`, each file representing a the properties of the trait (Check Traits Section), for example:
+An Array of each layer, the label you define here is used for naming the folder names in `config/images`. For convenience metadata is split into different folders like `data/head.js`, each file representing a the properties of the trait (Check Traits Section). For example:
 
 ```
   const { head } = require("./data/head.js");
@@ -57,7 +65,7 @@ An unique ID number.
 
 ``name``
 
-The string containing the name to be displayed on the final database.json.
+The string containing the name to be displayed on the final ``database.json``.
 
 ``chance``
 
@@ -95,5 +103,4 @@ Files required on ``config/images`` follow the configuration for layers on ``set
 ## How to run:
 
 Fork this repo and run ``yarn install`` to install all dependencies. Then use ``node index.js`` to run.
-
-
+Once the script finishes, images and the ``database.json`` file will be located on the ``output`` folder.

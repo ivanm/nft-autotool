@@ -1,24 +1,24 @@
-console.log("Welcome! lets generate some images >:3");
-
-// CONSTANTS
-const CONFIG_DIR = "./config";
-const PARTS_DIR = `${CONFIG_DIR}/images`;
-const OUTPUT_DIR = "./output/";
-const RAW_WIDTH = 1668;
-const RAW_HEIGHT = 2224;
-const OUTPUT_MAX = 50;
-const INITIAL_IMAGE_ID = 1;
-
-const splashTill = new Date(new Date().getTime() + 1 * 800);
-while (splashTill > new Date()) {}
-
 const sharp = require("sharp");
-const {
-  settings: { layers, dnaLayerIds, collectionName }
-} = require(`${CONFIG_DIR}/settings.js`);
 const fs = require("fs");
 
-// Gets Part from the current dirs
+// Constants
+const CONFIG_DIR = "./config";
+const PARTS_DIR = `${CONFIG_DIR}/images`;
+const OUTPUT_DIR = "./output";
+const INITIAL_IMAGE_ID = 1;
+
+// Settings
+const {
+  settings: {
+    layers,
+    dnaLayerIds,
+    collectionName,
+    maxNumber,
+    extractDimensions
+  }
+} = require(`${CONFIG_DIR}/settings.js`);
+
+// Helper to get the file location of the part with the name and the id
 const getPart = (name, number) => {
   return `${PARTS_DIR}/${name}/${name}${number}.png`;
 };
@@ -43,12 +43,18 @@ const randomChance = items => {
   return chanceMap[random];
 };
 
+// Gets a random letter, A, B or C
 const randomAbc = () => ["A", "B", "C"][getRandomInt(0, 2)];
+
+// Helper for getting the trait from attributes
 const getTraitFromAttr = (attributes, type) =>
   attributes.find(({ trait_type }) => trait_type == type).value;
 
-let images = {};
-for (let i = INITIAL_IMAGE_ID; i <= OUTPUT_MAX; i++) {
+console.log("Welcome! lets generate some images >:3");
+
+let database = {};
+
+for (let i = INITIAL_IMAGE_ID; i <= maxNumber; i++) {
   console.log(`Calculating #${i}`);
 
   let uniqueDnaChunk = "";
@@ -67,12 +73,12 @@ for (let i = INITIAL_IMAGE_ID; i <= OUTPUT_MAX; i++) {
     console.log(`Random DNA: #${uniqueDnaChunk}`);
 
     if (
-      !Object.values(images).find(
+      !Object.values(database).find(
         ({ attributes }) =>
           getTraitFromAttr(attributes, "DNA") == uniqueDnaChunk
       )
     ) {
-      images[i] = {
+      database[i] = {
         id: i,
         name: `${collectionName} #${i}`,
         attributes: [
@@ -114,7 +120,7 @@ for (let i = INITIAL_IMAGE_ID; i <= OUTPUT_MAX; i++) {
     .then(({ data, info }) => {
       console.log(`Finished composing #${i}`);
       sharp(data)
-        .extract({ left: 0, top: 250, width: 1668, height: 1668 })
+        .extract(extractDimensions)
         .toFile(`${OUTPUT_DIR}/${i}.png`, function(err) {
           console.log(`Writing ${i}.png`);
           if (err) {
@@ -126,8 +132,8 @@ for (let i = INITIAL_IMAGE_ID; i <= OUTPUT_MAX; i++) {
 
 console.log("Writing JSON to database.json");
 fs.writeFile(
-  "./output/database.json",
-  JSON.stringify(images, null, 2),
+  `${OUTPUT_DIR}/database.json`,
+  JSON.stringify(database, null, 2),
   "utf8",
   () => {}
 );

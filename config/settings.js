@@ -6,7 +6,9 @@ const { nouse } = require("./data/nouse.js");
 const { mouth } = require("./data/mouth.js");
 exports.settings = {
   collectionName: "Feels Metaverse",
+  maxNumber: 50,
   dnaLayerIds: [1, 2, 3, 4, 5],
+  extractDimensions: { left: 0, top: 250, width: 1668, height: 1668 },
   layers: [
     // layer0
     {
