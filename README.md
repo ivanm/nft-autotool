@@ -1,4 +1,5 @@
 # NFT Autotool
+
 ## What is this?
 
 This script transforms json metadata, a set of images (that represent a trait) and a configuration for each trait into a set of composited images according to the order and probability for each trait. It also generates a single ``database.json`` that can be used for NFT standards ERC721, ERC1155 throught an API like https://github.com/ProjectOpenSea/metadata-api-nodejs/tree/master/src
@@ -7,7 +8,9 @@ The easiest way would be to could fork this repo and modify the config directory
 
 ## Where to start?
 
-A good idea would to start with a PSD containing the layers for each trait that you will be composing. An example of Feels Metaverse can be found on the ``demo`` folder of this repo. You could use a plugin for GIMP like https://khalim19.github.io/gimp-plugin-export-layers/sections/Installation.html for making it easier to export.
+A good idea would to start with a PSD containing the layers for each trait that you will be composing. An example of **Feels Metaverse** can be found on the ``demo`` folder of this repo. 
+
+You can use a plugin for GIMP like https://khalim19.github.io/gimp-plugin-export-layers/sections/Installation.html for making it easier to export multiple layers.
 
 ## Configuration
 
