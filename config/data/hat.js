@@ -23,5 +23,10 @@ exports.hat = [
     id: 4,
     name: "Red Cap Hat",
     chance: 30
+  },
+  {
+    id: 5,
+    name: "Birthday Hat",
+    chance: 30
   }
 ];
