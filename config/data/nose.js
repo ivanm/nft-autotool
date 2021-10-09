@@ -1,12 +1,12 @@
-exports.nouse = [
+exports.nose = [
   {
     id: 0,
-    name: "No Nouse",
+    name: "No Nose",
     chance: 5
   },
   {
     id: 1,
-    name: "Standard Nouse",
+    name: "Standard Nose",
     chance: 40
   }
 ];

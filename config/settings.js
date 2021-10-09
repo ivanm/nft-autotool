@@ -2,7 +2,7 @@ const { background } = require("./data/background.js");
 const { hat } = require("./data/hat.js");
 const { head } = require("./data/head.js");
 const { eyes } = require("./data/eyes.js");
-const { nouse } = require("./data/nouse.js");
+const { nose } = require("./data/nose.js");
 const { mouth } = require("./data/mouth.js");
 exports.settings = {
   collectionName: "Feels Metaverse",
@@ -30,9 +30,9 @@ exports.settings = {
     },
     // layer3
     {
-      name: "nouse",
-      label: "Nouse",
-      items: nouse
+      name: "nose",
+      label: "Nose",
+      items: nose
     },
     // layer4
     {
