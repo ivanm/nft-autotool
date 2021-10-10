@@ -10,6 +10,7 @@ const OUTPUT_DIR = process.env.NFT_AUTOTOOL_OUTPUT
   : "./output";
 const PARTS_DIR = `${CONFIG_DIR}/images`;
 const INITIAL_IMAGE_ID = 1;
+const charMap = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 // Settings
 const {
@@ -50,6 +51,25 @@ const randomChance = items => {
 // Gets a random letter, A, B or C
 const randomAbc = () => ["A", "B", "C"][getRandomInt(0, 2)];
 
+// Gets all combinations of the elements of the array
+const cartesian = args => {
+  let result = [],
+    max = args.length - 1;
+  const helper = (arr, i) => {
+    for (let j = 0, l = args[i].length; j < l; j++) {
+      let a = arr.slice(0); // clone arr
+      a.push(args[i][j]);
+      if (i == max) {
+        result.push(a);
+      } else {
+        helper(a, i + 1);
+      }
+    }
+  };
+  helper([], 0);
+  return result;
+};
+
 // Helper for getting the trait from attributes
 const getTraitFromAttr = (attributes, type) =>
   attributes.find(({ trait_type }) => trait_type == type).value;
@@ -57,6 +77,32 @@ const getTraitFromAttr = (attributes, type) =>
 console.log("Welcome! lets generate some images >:3");
 
 let database = {};
+const dynamicDnaLayers = layers.filter(({ dynamicDna }) => dynamicDna);
+
+let dynamicDnaOrder = [...dynamicDnaLayers];
+dynamicDnaOrder.sort((a, b) => a.dynamicDna.order - b.dynamicDna.order);
+dynamicDnaOrder = dynamicDnaOrder.map(({ name }) => name);
+
+let dynamicDnaMixes = new Array(dynamicDnaOrder.length).fill([]);
+dynamicDnaOrder.forEach((dynamicDnaName, index) => {
+  size = dynamicDnaLayers.find(({ name }) => name == dynamicDnaName).dynamicDna
+    .size;
+  for (let i = 0; i < size; i++) {
+    dynamicDnaMixes[index] = [...dynamicDnaMixes[index], charMap[i]];
+  }
+});
+
+const dynamicCombinations = dynamicDnaMixes.length
+  ? cartesian(dynamicDnaMixes).map(el => ({
+      letters: el.join(""),
+      data: Object.assign(
+        {},
+        ...Object.entries(Object.assign({}, dynamicDnaOrder)).map(([a, b]) => ({
+          [b]: el[parseInt(a)]
+        }))
+      )
+    }))
+  : [{ letters: "", data: {} }];
 
 for (let i = INITIAL_IMAGE_ID; i <= maxNumber; i++) {
   console.log(`Calculating #${i}`);
@@ -64,7 +110,6 @@ for (let i = INITIAL_IMAGE_ID; i <= maxNumber; i++) {
   let uniqueDnaChunk = "";
   let dynamicDna = [];
   let layerIds = [];
-
   do {
     dynamicDna = [randomAbc(), randomAbc()];
 
@@ -99,39 +144,37 @@ for (let i = INITIAL_IMAGE_ID; i <= maxNumber; i++) {
     }
   } while (!uniqueDnaChunk);
 
-  sharp(
-    getPart(
-      layers[0].name,
-      `${layerIds[0]}${
-        layers[0].dynamicDna ? dynamicDna[layers[0].dynamicDna - 1] : ""
-      }`
+  dynamicCombinations.forEach(({ letters, data }) => {
+    sharp(
+      getPart(
+        layers[0].name,
+        `${layerIds[0]}${data[layers[0].name] ? data[layers[0].name] : ""}`
+      )
     )
-  )
-    .composite(
-      layerIds.map((layerId, index) => ({
-        input: getPart(
-          layers[index].name,
-          `${layerId}${
-            layers[index].dynamicDna
-              ? dynamicDna[layers[index].dynamicDna - 1]
-              : ""
-          }`
-        ),
-        gravity: "southeast"
-      }))
-    )
-    .toBuffer({ resolveWithObject: true })
-    .then(({ data, info }) => {
-      console.log(`Finished composing #${i}`);
-      sharp(data)
-        .extract(extractDimensions)
-        .toFile(`${OUTPUT_DIR}/${i}.png`, function(err) {
-          console.log(`Writing ${i}.png`);
-          if (err) {
-            console.log(`Error: ${err}`);
-          }
-        });
-    });
+      .composite(
+        layerIds.map((layerId, index) => ({
+          input: getPart(
+            layers[index].name,
+            `${layerId}${
+              data[layers[index].name] ? data[layers[index].name] : ""
+            }`
+          ),
+          gravity: "southeast"
+        }))
+      )
+      .toBuffer({ resolveWithObject: true })
+      .then(({ data, info }) => {
+        console.log(`Finished composing #${i}${letters}`);
+        sharp(data)
+          .extract(extractDimensions)
+          .toFile(`${OUTPUT_DIR}/${i}${letters}.png`, function(err) {
+            console.log(`Writing ${i}${letters}.png`);
+            if (err) {
+              console.log(`Error: ${err}`);
+            }
+          });
+      });
+  });
 }
 
 console.log("Writing JSON to database.json");
