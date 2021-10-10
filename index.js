@@ -2,9 +2,13 @@ const sharp = require("sharp");
 const fs = require("fs");
 
 // Constants
-const CONFIG_DIR = "./config";
+const CONFIG_DIR = process.env.NFT_AUTOTOOL_CONFIG
+  ? process.env.NFT_AUTOTOOL_CONFIG
+  : "./config";
+const OUTPUT_DIR = process.env.NFT_AUTOTOOL_OUTPUT
+  ? process.env.NFT_AUTOTOOL_OUTPUT
+  : "./output";
 const PARTS_DIR = `${CONFIG_DIR}/images`;
-const OUTPUT_DIR = "./output";
 const INITIAL_IMAGE_ID = 1;
 
 // Settings
