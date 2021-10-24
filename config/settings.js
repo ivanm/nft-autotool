@@ -6,7 +6,11 @@ const { nose } = require("./data/nose.js");
 const { mouth } = require("./data/mouth.js");
 exports.settings = {
   collectionName: "Feels Metaverse",
-  maxNumber: 200,
+  maxNumber: 50,
+  thumbnailsResize: {
+    width: 300,
+    height: 300
+  },
   dnaLayerIds: [1, 2, 3, 4, 5],
   extractDimensions: { left: 0, top: 250, width: 1668, height: 1668 },
   layers: [
