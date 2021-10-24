@@ -141,6 +141,9 @@ for (let i = initialId; i < initialId + maxNumber; i++) {
     dynamicTrait = [randomAbc(), randomAbc()];
 
     layerIds = layers.map(({ items }) => randomChance(items).id);
+    // If there is a file restore.json on the output folder
+    // it will generate the layer with the matching id from that file
+    // Useful for restoring from an old database.json
     if (restore[i]) {
       layerIds = layers.map(({ label, items }) => {
         const trait = restore[i].attributes.find(

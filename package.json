@@ -1,4 +1,6 @@
 {
+  "name": "nft-autotool",
+  "version": "1.1",
   "dependencies": {
     "sharp": "^0.29.0"
   }

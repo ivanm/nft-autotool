@@ -107,6 +107,32 @@ For example, for layer ``hat`` if we are going to add ids ``1``,``2``, ``3`` on 
 - A folder `hat` on ``config/images``.
 - Images ``hat1.png``, ``hat2.png``, ``hat3.png`` on ``config/images/hat``.
 
+## Additional Options
+
+### Thumbnail generation
+
+Add to `settings.js` to generate 200x200 thumbnails
+
+```
+  thumbnailsResize: {
+    width: 200,
+    height: 200
+  },
+```
+
+### Dynamic Traits
+
+Generate multiple variations of a treat, useful for Dynamic NFTs.
+
+```
+{
+      name: "background",
+      label: "Background",
+      dynamicTrait: { order: 1, size: 3 }
+}
+```
+And generate a file for each layer variation: i.e. `background1A.png`, `background1B.png`, `background1C.png`.
+
 ## How to run:
 
 Fork this repo and run ``yarn install`` to install all dependencies. Then use ``node index.js`` to run.
