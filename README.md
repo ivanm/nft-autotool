@@ -1,5 +1,6 @@
 # NFT Autotool
 
+ ![Tux, the Linux mascot](https://raw.githubusercontent.com/ivanm/nft-autotool/main/demo/animation.gif)
 ## What is this?
 
 This script transforms json metadata, a set of images (that represent a trait) and a configuration for each one into a set of composited images according to the order and probability for each trait. 
