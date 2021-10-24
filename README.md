@@ -115,24 +115,25 @@ For example, for layer ``hat`` if we are going to add ids ``1``,``2``, ``3`` on 
 Add to `settings.js` to generate 200x200 thumbnails
 
 ```
-  thumbnailsResize: {
-    width: 200,
-    height: 200
-  },
+thumbnailsResize: {
+  width: 200,
+  height: 200
+}
 ```
 
 ### Dynamic Traits
 
-Generate multiple variations of a treat, useful for Dynamic NFTs.
+Generate multiple variations of a trait, useful for Dynamic NFTs.
 
+Example:
 ```
 {
-      name: "background",
-      label: "Background",
-      dynamicTrait: { order: 1, size: 3 }
+ name: "background",
+ label: "Background",
+ dynamicTrait: { order: 1, size: 3 }
 }
 ```
-And generate a file for each layer variation: i.e. `background1A.png`, `background1B.png`, `background1C.png`.
+You will need to generate a file for each layer variation: i.e. `background1A.png`, `background1B.png`, `background1C.png`.
 
 ## How to run:
 
